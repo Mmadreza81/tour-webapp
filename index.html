@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درخواست تور</title>
+    <!-- فونت زیبا و مدرن وزیرمتن از گوگل فونت -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- استایل تقویم شمسی -->
+    <link rel="stylesheet" href="https://unpkg.com/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-theme">
+
+    <!-- بک‌گراند متحرک با سرعت بالاتر -->
+    <div class="animated-background">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- دکمه تغییر تم -->
+    <button id="theme-toggle" class="theme-toggle-btn" title="تغییر تم">🌙</button>
+
+    <div class="container">
+        <div class="form-card">
+            <div class="icon-header">✈️</div>
+            <h2>درخواست تور</h2>
+            <p class="subtitle">فرم درخواست سفر خود را با دقت تکمیل کنید</p>
+
+            <form id="tour-form" novalidate>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="hidden" id="chat_id" name="chat_id" />
+                        <label for="name">نام و نام خانوادگی *</label>
+                        <input type="text" id="name" name="name" placeholder="علی احمدی">
+                        <span class="error-message" id="name-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">شماره موبایل *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="09123456789" maxlength="11">
+                        <span class="error-message" id="phone-error"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="origin">مبدأ *</label>
+                        <input type="text" id="origin" name="origin" placeholder="تهران">
+                        <span class="error-message" id="origin-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="destination">مقصد *</label>
+                        <input type="text" id="destination" name="destination" placeholder="استانبول">
+                        <span class="error-message" id="destination-error"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="departure_date">تاریخ رفت *</label>
+                        <input type="text" id="departure_date" name="departure_date" placeholder="1405/06/10" class="shamsi-input">
+                        <span class="error-message" id="departure_date-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="return_date">تاریخ برگشت *</label>
+                        <input type="text" id="return_date" name="return_date" placeholder="1405/06/17" class="shamsi-input">
+                        <span class="error-message" id="return_date-error"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="adult_count">تعداد بزرگسال</label>
+                        <input type="number" id="adult_count" name="adult_count" min="1" value="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="child_count">تعداد کودک</label>
+                        <input type="number" id="child_count" name="child_count" min="0" value="0">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="room_type">نوع اتاق</label>
+                        <select id="room_type" name="room_type">
+                            <option value="">بدون ترجیح</option>
+                            <option value="یک نفره">یک نفره</option>
+                            <option value="دونفره">دونفره</option>
+                            <option value="خانوادگی">خانوادگی</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="hotel_rating">درجه هتل</label>
+                        <select id="hotel_rating" name="hotel_rating">
+                            <option value="">بدون ترجیح</option>
+                            <option value="۳ ستاره">۳ ستاره</option>
+                            <option value="۴ ستاره">۴ ستاره</option>
+                            <option value="۵ ستاره">۵ ستاره</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="budget">بودجه تقریبی</label>
+                        <input type="text" id="budget" name="budget" placeholder="مثلاً ۸۰ میلیون تومان">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="description">توضیحات</label>
+                        <textarea id="description" name="description" rows="3" placeholder="توضیحات تکمیلی..."></textarea>
+                    </div>
+                </div>
+
+                <!-- فیلد تعداد کل مسافران (فقط خواندنی) -->
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>تعداد کل مسافران</label>
+                        <input type="text" id="total-passengers" value="1" readonly class="readonly-field">
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">ثبت درخواست سفر</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- اسکریپت‌های تقویم شمسی (jQuery و Persian Datepicker) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/persian-date@1.1.0/dist/persian-date.min.js"></script>
+    <script src="https://unpkg.com/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
