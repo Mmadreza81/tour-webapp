@@ -1,12 +1,15 @@
+const tg = window.Telegram.WebApp;
+
+tg.ready();
+tg.expand();
+
 let chat_id = null;
-if (window.Telegram && Telegram.WebApp)
-{
-    Telegram.WebApp.ready();
-    if (Telegram.WebApp.initDataUnsafe.user)
-    {
-        chat_id = Telegram.WebApp.initDataUnsafe.user?.id || 'test_user';
-    }
-}
+
+if (tg.initDataUnsafe && tg.initDataUnsafe.user)
+	{
+		chat_id = tg.initDataUnsafe.user.id;
+	}
+	console.log("Telegram chat/user ID:", chat_id);
 
 document.addEventListener('DOMContentLoaded', () => {
     // مدیریت دکمه تغییر تم
