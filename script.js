@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description: document.getElementById('description').value.trim()
         };
 
-        fetch("https://unstitch-rocky-antonym.ngrok-free.dev/webhook/tour-request", {
+        fetch("https://unstitch-rocky-antonym.ngrok-free.dev/webhook-test/tour-request", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
