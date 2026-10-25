@@ -6,7 +6,6 @@ const WEBHOOK_URLS = {
     production: "https://unstitch-rocky-antonym.ngrok-free.dev/webhook/tour-request"
 };
 
-// حالت اجرا: "test" یا "production"
 const WEBHOOK_MODE = "production";
 
 const WEBHOOK_URL = WEBHOOK_URLS[WEBHOOK_MODE];
