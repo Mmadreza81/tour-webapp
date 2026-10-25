@@ -1,5 +1,16 @@
 const tg = window.Telegram.WebApp;
 
+
+const WEBHOOK_URLS = {
+    test: "https://unstitch-rocky-antonym.ngrok-free.dev/webhook-test/tour-request",
+    production: "https://unstitch-rocky-antonym.ngrok-free.dev/webhook/tour-request"
+};
+
+// حالت اجرا: "test" یا "production"
+const WEBHOOK_MODE = "production";
+
+const WEBHOOK_URL = WEBHOOK_URLS[WEBHOOK_MODE];
+
 tg.ready();
 tg.expand();
 
@@ -162,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description: document.getElementById('description').value.trim()
         };
 
-        fetch("https://unstitch-rocky-antonym.ngrok-free.dev/webhook-test/tour-request", {
+        fetch(WEBHOOK_URLS, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
