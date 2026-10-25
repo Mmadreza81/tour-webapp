@@ -6,7 +6,7 @@ const WEBHOOK_URLS = {
     production: "https://unstitch-rocky-antonym.ngrok-free.dev/webhook/tour-request"
 };
 
-const WEBHOOK_MODE = "production";
+const WEBHOOK_MODE = "test";
 
 const WEBHOOK_URL = WEBHOOK_URLS[WEBHOOK_MODE];
 
@@ -172,22 +172,41 @@ document.addEventListener('DOMContentLoaded', () => {
             description: document.getElementById('description').value.trim()
         };
 
-        fetch(WEBHOOK_URLS, {
+        fetch(WEBHOOK_URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(formData)
         })
-            .then(response => response.json())
-            .then(result => {
-                console.log("ارسال شد:", result);
-                alert("درخواست شما با موفقیت ثبت شد!");
+            .then(async response => {
+                const responseText = await response.text();
+
+                console.log("Webhook status:", response.status);
+                console.log("Webhook response:", responseText);
+
+                if (!response.ok) {
+                    throw new Error(
+                        `HTTP ${response.status}: ${responseText}`
+                    );
+                }
+
+                let result;
+
+                try {
+                    result = JSON.parse(responseText);
+                } catch {
+                    result = { message: responseText };
+                }
+
+                alert("درخواست شما با موفقیت ارسال شد!");
+                console.log("ارسال موفق:", result);
             })
             .catch(error => {
-                console.error("خطا:", error);
-                alert("ارسال اطلاعات با مشکل مواجه شد");
+                console.error("خطا در ارسال فرم:", error);
+                alert("ارسال اطلاعات با مشکل مواجه شد. لطفاً Console را بررسی کنید.");
             });
+
         // form.reset(); // در صورت نیاز می‌توانید فرم را ریست کنید
         // updateTotalPassengers();
     });
